@@ -23,4 +23,5 @@ Add-PSSnapin Zerto.PS.Commands
 
 ################ Your Code Below Here ###########################
 
-
+# example command to check commectivity to ZVM
+Get-Sites -zvmip $ZVMServer -zvmport $ZVMPort -username $ZVMUser -password $ZVMPass
