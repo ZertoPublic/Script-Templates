@@ -1,5 +1,5 @@
 #################################################################
-# powershell-template.ps1
+# Template-PowerShell-cmdlets.ps1
 # 
 # By Justin Paul, Zerto Technical Alliances Architect
 # Contact info: jp@zerto.com
