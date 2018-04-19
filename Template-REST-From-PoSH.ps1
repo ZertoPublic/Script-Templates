@@ -12,7 +12,7 @@
 $strZVMIP = "172.16.1.20"
 $strZVMPort = "9669"
 $strZVMUser = "administrator@vsphere.local"
-$strZVMPwd = "Zertodata1!"
+$strZVMPwd = "password"
 
 
 ############### ignore self signed SSL ##########################
