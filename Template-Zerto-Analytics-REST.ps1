@@ -13,7 +13,7 @@ $strZaUrl = "analytics.api.zerto.com"
 $strZAUser = "me@domain.com"
 $strZAPwd = "mypassword"
 
-## Perform authentication so that Zerto APIs can run. Return a session identifier that needs tobe inserted in the header for subsequent requests.
+## Perform authentication so that Zerto APIs can run. Return a bearer token that needs to be inserted in the header for subsequent requests.
 function getZertoAnalyticsAuthToken ($userName, $password){
     $baseURL = "https://" + $strZaUrl
     $xZertoSessionURL = $baseURL +"/v2/auth/token"
@@ -26,7 +26,7 @@ function getZertoAnalyticsAuthToken ($userName, $password){
     return $xZertoSessionResponse.token
 }
 
-#Extract x-zerto-session from the response, and add it to the actual API:
+#Setup Zerto Analytics Header information with new token:
 $xZertoSession = getZertoAnalyticsAuthToken $strZVMUser $strZVMPwd
 $zertoSessionHeader = @{"accept"="application/json"
     'Authorization' = "Bearer $($xZertoSession)"}
