@@ -25,23 +25,25 @@ $strZaUrl = "analytics.api.zerto.com"
 $strZAUser = "me@domain.com"
 $strZAPwd = "mypassword"
 
+[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12 -bor [System.Net.SecurityProtocolType]::Tls11
+
 ## Perform authentication so that Zerto APIs can run. Return a bearer token that needs to be inserted in the header for subsequent requests.
 function getZertoAnalyticsAuthToken ($userName, $password){
     $baseURL = "https://" + $strZaUrl
     $xZertoSessionURL = $baseURL +"/v2/auth/token"
-    $params = @{
+    $body = @{
         "username"="$strZAUser"
         "password"="$strZAPwd"
     }
     $contentType = "application/json"
-    $xZertoSessionResponse = Invoke-RESTMethod -Uri $xZertoSessionURL -Method POST -Body ($params|ConvertTo-Json) -ContentType $contentType
+    $xZertoSessionResponse = Invoke-RESTMethod -Uri $xZertoSessionURL -Method POST -Body ($body | ConvertTo-Json) -ContentType $contentType
     return $xZertoSessionResponse.token
 }
 
 #Setup Zerto Analytics Header information with new token:
-$xZertoSession = getZertoAnalyticsAuthToken $strZVMUser $strZVMPwd
+$authToken = getZertoAnalyticsAuthToken $strZVMUser $strZVMPwd
 $zertoSessionHeader = @{"accept"="application/json"
-    'Authorization' = "Bearer $($xZertoSession)"}
+    'Authorization' = "Bearer $($authToken)"}
 
 ################ Your Script starts here #######################
 #Invoke the Zerto API:
